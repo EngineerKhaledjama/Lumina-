@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Courses — Lumina Academy</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.page-hero{padding:9rem 3rem 4rem;background:var(--ink);position:relative;overflow:hidden}
+.page-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 80% 50%,rgba(26,143,160,0.15),transparent 70%),radial-gradient(ellipse 40% 60% at 10% 80%,rgba(232,160,32,0.1),transparent 60%)}
+.page-hero-inner{position:relative;z-index:1}
+.page-tag{font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.page-tag::before{content:'';display:inline-block;width:20px;height:1px;background:var(--gold)}
+.page-title{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;color:var(--paper);line-height:1;letter-spacing:-0.03em;margin-bottom:1rem}
+.page-title em{font-style:italic;color:var(--teal)}
+.page-sub{font-size:1rem;color:rgba(245,240,232,0.55);max-width:500px;line-height:1.8}
+
+/* Filters */
+.filters-bar{padding:2rem 3rem;background:var(--cream);border-bottom:1px solid rgba(13,13,20,0.08);display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.filter-btn{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.07em;text-transform:uppercase;padding:.5rem 1.1rem;border:1.5px solid rgba(13,13,20,0.2);background:transparent;cursor:pointer;transition:all .2s;color:var(--ink)}
+.filter-btn:hover,.filter-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* Grid */
+.courses-page{padding:3rem 3rem 6rem}
+.courses-full-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.course-item{background:white;border:1px solid rgba(13,13,20,0.07);transition:transform .3s,box-shadow .3s;cursor:none;text-decoration:none;display:block;color:var(--ink)}
+.course-item:hover{transform:translateY(-8px);box-shadow:0 24px 60px var(--shadow)}
+.ci-thumb{height:200px;position:relative;overflow:hidden}
+.ci-thumb-bg{position:absolute;inset:0;transition:transform .4s ease}
+.course-item:hover .ci-thumb-bg{transform:scale(1.06)}
+.bg-1{background:linear-gradient(135deg,#0d2035,#1a4060)}.bg-2{background:linear-gradient(135deg,#2d1520,#6b2040)}.bg-3{background:linear-gradient(135deg,#0d2520,#1a5040)}.bg-4{background:linear-gradient(135deg,#251520,#503040)}.bg-5{background:linear-gradient(135deg,#201505,#604020)}.bg-6{background:linear-gradient(135deg,#050d20,#102050)}.bg-7{background:linear-gradient(135deg,#1a2505,#405020)}.bg-8{background:linear-gradient(135deg,#200510,#502030)}
+.ci-thumb-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:24px 24px}
+.ci-badge{position:absolute;top:1rem;left:1rem;background:var(--gold);color:var(--ink);font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.07em;text-transform:uppercase;padding:.25rem .55rem;font-weight:700}
+.ci-emoji{position:absolute;bottom:1rem;right:1rem;font-size:2.5rem;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.3))}
+.ci-body{padding:1.5rem}
+.ci-category{font-family:'Space Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:var(--teal);margin-bottom:.5rem}
+.ci-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;line-height:1.3;margin-bottom:.7rem}
+.ci-meta{display:flex;gap:1rem;font-size:.75rem;color:rgba(13,13,20,0.45);margin-bottom:1.2rem;flex-wrap:wrap}
+.ci-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:1rem;border-top:1px solid rgba(13,13,20,0.06)}
+.ci-rating{display:flex;align-items:center;gap:.3rem}
+.stars{color:var(--gold);font-size:.7rem}
+.rating-num{font-size:.78rem;font-weight:500}
+.ci-price{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--coral)}
+.hidden{display:none!important}
+
+@media(max-width:1024px){.courses-full-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.courses-full-grid{grid-template-columns:1fr}.courses-page{padding:2rem 1.25rem 4rem}.filters-bar{padding:1.5rem 1.25rem}.page-hero{padding:7rem 1.25rem 3rem}}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="progress-bar" id="progressBar" style="width:0%"></div>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="courses.html" onclick="closeMobileNav()">Courses</a>
+  <a href="index.html#categories" onclick="closeMobileNav()">Topics</a>
+  <a href="mentors.html" onclick="closeMobileNav()">Mentors</a>
+  <a href="about.html" onclick="closeMobileNav()">About</a>
+  <a href="contact.html" onclick="closeMobileNav()">Contact</a>
+  <button class="mobile-cta" onclick="closeMobileNav()">Start Learning →</button>
+</div>
+<nav>
+  <a href="index.html" class="nav-logo"><span></span>Lumina</a>
+  <ul class="nav-links">
+    <li><a href="courses.html">Courses</a></li>
+    <li><a href="index.html#categories">Topics</a></li>
+    <li><a href="mentors.html">Mentors</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="window.location='contact.html'">Start Learning</button>
+  <button class="hamburger" id="hamburger" onclick="toggleMobileNav()"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-inner">
+    <div class="page-tag">340+ Courses Available</div>
+    <h1 class="page-title">All <em>Courses</em></h1>
+    <p class="page-sub">Browse our full library of expert-led courses. Filter by topic to find exactly what you need.</p>
+  </div>
+</div>
+
+<div class="filters-bar">
+  <button class="filter-btn active" onclick="filterCourses('all',this)">All</button>
+  <button class="filter-btn" onclick="filterCourses('ai',this)">AI & ML</button>
+  <button class="filter-btn" onclick="filterCourses('design',this)">Design</button>
+  <button class="filter-btn" onclick="filterCourses('webdev',this)">Web Dev</button>
+  <button class="filter-btn" onclick="filterCourses('data',this)">Data Science</button>
+  <button class="filter-btn" onclick="filterCourses('security',this)">Security</button>
+  <button class="filter-btn" onclick="filterCourses('cloud',this)">Cloud</button>
+  <button class="filter-btn" onclick="filterCourses('mobile',this)">Mobile</button>
+</div>
+
+<div class="courses-page">
+  <div class="courses-full-grid" id="coursesGrid">
+
+    <a href="courses/machine-learning.html" class="course-item" data-cat="ai">
+      <div class="ci-thumb"><div class="ci-thumb-bg bg-1"></div><div class="ci-thumb-grid"></div><div class="ci-badge">New</div><div class="ci-emoji">🧠</div></div>
+      <div class="ci-body"><div class="ci-category">Artificial Intelligence</div><div class="ci-title">Machine Learning A-Z: Python & R in Data Science</div><div class="ci-meta"><span>⏱ 28h</span><span>📚 180 lessons</span><span>🎓 Beginner</span></div><div class="ci-bottom"><div class="ci-rating"><span class="stars">★★★★★</span><span class="rating-num">4.8 (3.2k)</span></div><div class="ci-price">$39</div></div></div>
+    </a>
+
+    <a href="courses/ux-design.html" class="course-item" data-cat="design">
+      <div class="ci-thumb"><div class="ci-thumb-bg bg-2"></div><div class="ci-thumb-grid"></div><div class="ci-badge">Popular</div><div class="ci-emoji">🎨</div></div>
+      <div class="ci-body"><div class="ci-category">UI/UX Design</div><div class="ci-title">Complete UI/UX Design Bootcamp with Figma</div><div class="ci-meta"><span>⏱ 36h</span><span>📚 210 lessons</span><span>🎓 All Levels</span></div><div class="ci-bottom"><div class="ci-rating"><span class="stars">★★★★★</span><span class="rating-num">4.9 (5.1k)</span></div><div class="ci-price">$59</div></div></div>
+    </a>
+
+    <a href="courses/react-typescript.html" class="course-item" data-cat="webdev">
+      <div class="ci-thumb"><div class="ci-thumb-bg bg-3"></div><div class="ci-thumb-grid"></div><div class="ci-badge">🔥 Hot</div><div class="ci-emoji">⚛️</div></div>
+      <div class="ci-body"><div class="ci-category">Web Development</div><div class="ci-title">React & TypeScript: Build Production Apps</div><div class="ci-meta"><span>⏱ 22h</span><span>📚 145 lessons</span><span>🎓 Intermediate</span></div><div class="ci-bottom"><div class="ci-rating"><span class="stars">★★★★★</span><span class="rating-num">4.7 (2.8k)</span></div><div class="ci-price">$49</div></div></div>
+    </a>
+
+    <a href="courses/python-data.html" class="course-item" data-cat="data">
+      <div class="ci-thumb"><div class="ci-thumb-bg bg-4"></div><div class="ci-thumb-grid"></div><div class="ci-badge">Updated</div><div class="ci-emoji">📊</div></div>
+      <div class="ci-body"><div class="ci-category">Data Science</div><div class="ci-title">Python for Data Analysis & Visualization</div><div class="ci-meta"><span>⏱ 18h</span><span>📚 120 lessons</span><span>🎓 Beginner</span></div><div class="ci-bottom"><div class="ci-rating"><span class="stars">★★★★☆</span><span class="rating-num">4.6 (1.9k)</span></div><div class="ci-price">$34</div></div></div>
+    </a>
+
+    <a href="courses/ethical-hacking.html" class="course-item" data-cat="security">
+      <div class="ci-thumb"><div class="ci-thumb-bg bg-5"></div><div class="ci-thumb-grid"></div><div class="ci-badge">Free</div><div class="ci-emoji">🔐</div></div>
+      <div class="ci-body"><div class="ci-category">Cybersecurity</div><div class="ci-title">Ethical Hacking & Penetration Testing</div><div class="ci-meta"><span>⏱ 40h</span><span>📚 250 lessons</span><span>🎓 Advanced</span></div><div class="ci-bottom"><div class="ci-rating"><span class="stars">★★★★★</span><span class="rating-num">4.9 (4.4k)</span></div><div class="ci-price">Free</div></div></div>
+    </a>
+
+    <a href="courses/aws-architect.html" class="course-item" data-cat="cloud">
+      <div class="ci-thumb"><div class="ci-thumb-bg bg-6"></div><div class="ci-thumb-grid"></div><div class="ci-badge">Trending</div><div class="ci-emoji">☁️</div></div>
+      <div class="ci-body"><div class="ci-category">Cloud Computing</div><div class="ci-title">AWS Certified Solutions Architect — 2026</div><div class="ci-meta"><span>⏱ 30h</span><span>📚 195 lessons</span><span>🎓 Intermediate</span></div><div class="ci-bottom"><div class="ci-rating"><span class="stars">★★★★★</span><span class="rating-num">4.8 (3.7k)</span></div><div class="ci-price">$69</div></div></div>
+    </a>
+
+    <a href="courses/flutter-mobile.html" class="course-item" data-cat="mobile">
+      <div class="ci-thumb"><div class="ci-thumb-bg bg-7"></div><div class="ci-thumb-grid"></div><div class="ci-badge">New</div><div class="ci-emoji">📱</div></div>
+      <div class="ci-body"><div class="ci-category">Mobile Development</div><div class="ci-title">Flutter & Dart: Build iOS & Android Apps</div><div class="ci-meta"><span>⏱ 32h</span><span>📚 200 lessons</span><span>🎓 Beginner</span></div><div class="ci-bottom"><div class="ci-rating"><span class="stars">★★★★★</span><span class="rating-num">4.7 (2.1k)</span></div><div class="ci-price">$44</div></div></div>
+    </a>
+
+    <a href="courses/fullstack-web.html" class="course-item" data-cat="webdev">
+      <div class="ci-thumb"><div class="ci-thumb-bg bg-8"></div><div class="ci-thumb-grid"></div><div class="ci-badge">Bestseller</div><div class="ci-emoji">⚡</div></div>
+      <div class="ci-body"><div class="ci-category">Web Development</div><div class="ci-title">Full-Stack Web Development Masterclass</div><div class="ci-meta"><span>⏱ 42h</span><span>📚 280 lessons</span><span>🎓 All Levels</span></div><div class="ci-bottom"><div class="ci-rating"><span class="stars">★★★★★</span><span class="rating-num">4.9 (6.8k)</span></div><div class="ci-price">$49</div></div></div>
+    </a>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div><div class="footer-brand"><span></span>Lumina Academy</div><p class="footer-desc">Empowering learners worldwide with industry-leading education and mentorship since 2020.</p></div>
+    <div><div class="footer-col-title">Courses</div><ul class="footer-links"><li><a href="courses.html?cat=webdev">Web Development</a></li><li><a href="courses.html?cat=data">Data Science</a></li><li><a href="courses.html?cat=design">Design</a></li><li><a href="courses.html?cat=ai">AI & ML</a></li></ul></div>
+    <div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a href="about.html">About Us</a></li><li><a href="mentors.html">Mentors</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div><div class="footer-col-title">Support</div><ul class="footer-links"><li><a href="#">Help Center</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Use</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 Lumina Academy. All rights reserved.</span><div class="footer-social"><div class="social-btn">𝕏</div><div class="social-btn">in</div><div class="social-btn">▶</div><div class="social-btn">ig</div></div></div>
+</footer>
+
+<script src="main.js"></script>
+<script>
+function filterCourses(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.course-item').forEach(c=>{
+    if(cat==='all'||c.dataset.cat===cat) c.classList.remove('hidden');
+    else c.classList.add('hidden');
+  });
+}
+// Auto-filter from URL param
+const urlCat = new URLSearchParams(window.location.search).get('cat');
+if(urlCat){
+  const btn=document.querySelector(`.filter-btn[onclick*="'${urlCat}'"]`);
+  if(btn) filterCourses(urlCat, btn);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Lumina Academy</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.page-hero{padding:9rem 3rem 4rem;background:var(--ink);position:relative;overflow:hidden}
+.page-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 80% 50%,rgba(26,143,160,0.15),transparent 70%),radial-gradient(ellipse 40% 60% at 10% 80%,rgba(232,160,32,0.1),transparent 60%)}
+.page-hero-inner{position:relative;z-index:1}
+.page-tag{font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.page-tag::before{content:'';display:inline-block;width:20px;height:1px;background:var(--gold)}
+.page-title{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;color:var(--paper);line-height:1;letter-spacing:-0.03em;margin-bottom:1rem}
+.page-title em{font-style:italic;color:var(--teal)}
+.page-sub{font-size:1rem;color:rgba(245,240,232,0.55);max-width:500px;line-height:1.8}
+
+.contact-section{padding:5rem 3rem;display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;align-items:start;max-width:1300px;margin:0 auto}
+.contact-items{display:flex;flex-direction:column;gap:1.2rem;margin-top:2rem}
+.contact-item{display:flex;align-items:center;gap:1rem}
+.contact-icon{width:44px;height:44px;flex-shrink:0;background:var(--ink);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--gold)}
+.contact-item-label{font-family:'Space Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(13,13,20,0.4);margin-bottom:.2rem}
+.contact-item-value{font-size:.9rem;font-weight:500;color:var(--ink)}
+.contact-form{background:white;border:1px solid rgba(13,13,20,0.07);padding:2.5rem;box-shadow:20px 20px 60px var(--shadow);position:relative}
+.contact-form::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--gold),var(--coral))}
+.form-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;margin-bottom:1.8rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
+.form-group:last-of-type{margin-bottom:0}
+.form-label{font-family:'Space Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(13,13,20,0.5)}
+.form-input,.form-select,.form-textarea{padding:.85rem 1rem;border:1.5px solid rgba(13,13,20,0.12);background:var(--paper);font-family:'DM Sans',sans-serif;font-size:.9rem;color:var(--ink);outline:none;transition:border-color .2s,background .2s;width:100%}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--teal);background:white}
+.form-input::placeholder,.form-textarea::placeholder{color:rgba(13,13,20,0.3)}
+.form-textarea{resize:vertical;min-height:120px}
+.form-select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230d0d14' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center}
+.form-submit{width:100%;background:var(--ink);color:var(--paper);padding:1rem;font-family:'Space Mono',monospace;font-size:.78rem;letter-spacing:.07em;text-transform:uppercase;border:none;cursor:pointer;margin-top:1.5rem;transition:background .25s,transform .2s;position:relative;overflow:hidden}
+.form-submit::after{content:'';position:absolute;inset:0;background:var(--teal);transform:scaleX(0);transform-origin:right;transition:transform .3s ease;z-index:0}
+.form-submit:hover::after{transform:scaleX(1);transform-origin:left}
+.form-submit:hover{transform:translateY(-2px)}
+.form-submit span{position:relative;z-index:1}
+.form-success{display:none;text-align:center;padding:1.5rem;background:rgba(26,143,160,0.08);border:1px solid rgba(26,143,160,0.2);margin-top:1rem}
+.form-success.show{display:block}
+.form-success-icon{font-size:2rem;margin-bottom:.5rem}
+.form-success-text{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--teal)}
+
+.faq-section{padding:5rem 3rem;background:var(--cream)}
+.faq-item{background:white;border:1px solid rgba(13,13,20,0.08);margin-bottom:.6rem;overflow:hidden}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;cursor:pointer;font-weight:500;font-size:.92rem}
+.faq-q span{font-size:1.2rem;color:var(--teal);transition:transform .3s}
+.faq-item.open .faq-q span{transform:rotate(45deg)}
+.faq-a{display:none;padding:0 1.5rem 1.2rem;font-size:.85rem;color:rgba(13,13,20,0.6);line-height:1.7}
+.faq-item.open .faq-a{display:block}
+
+@media(max-width:1024px){.contact-section{grid-template-columns:1fr;gap:3rem;padding:4rem 2rem}}
+@media(max-width:768px){.contact-section{padding:3rem 1.25rem;gap:2.5rem}.contact-form{padding:1.8rem 1.2rem}.form-row{grid-template-columns:1fr}.page-hero{padding:7rem 1.25rem 3rem}.faq-section{padding:3rem 1.25rem}}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div><div class="cursor-ring" id="cursorRing"></div>
+<div class="progress-bar" id="progressBar" style="width:0%"></div>
+<div class="mobile-nav" id="mobileNav">
+  <a href="courses.html" onclick="closeMobileNav()">Courses</a>
+  <a href="index.html#categories" onclick="closeMobileNav()">Topics</a>
+  <a href="mentors.html" onclick="closeMobileNav()">Mentors</a>
+  <a href="about.html" onclick="closeMobileNav()">About</a>
+  <a href="contact.html" onclick="closeMobileNav()">Contact</a>
+  <button class="mobile-cta" onclick="closeMobileNav()">Start Learning →</button>
+</div>
+<nav>
+  <a href="index.html" class="nav-logo"><span></span>Lumina</a>
+  <ul class="nav-links">
+    <li><a href="courses.html">Courses</a></li>
+    <li><a href="index.html#categories">Topics</a></li>
+    <li><a href="mentors.html">Mentors</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('fname').focus()">Start Learning</button>
+  <button class="hamburger" id="hamburger" onclick="toggleMobileNav()"><span></span><span></span><span></span></button>
+</nav>
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-inner">
+    <div class="page-tag">Get In Touch</div>
+    <h1 class="page-title">We'd Love to<br><em>Hear</em> From You</h1>
+    <p class="page-sub">Questions about courses, pricing, partnerships, or becoming a mentor? Our team responds within 24 hours.</p>
+  </div>
+</div>
+<div class="contact-section">
+  <div class="reveal">
+    <div class="section-label">Contact Info</div>
+    <h2 class="section-title" style="font-size:clamp(1.6rem,3vw,2.2rem)">Reach Us Directly</h2>
+    <div class="contact-items">
+      <div class="contact-item"><div class="contact-icon">📧</div><div><div class="contact-item-label">Email Us</div><div class="contact-item-value">hello@lumina.academy</div></div></div>
+      <div class="contact-item"><div class="contact-icon">📞</div><div><div class="contact-item-label">Call Us</div><div class="contact-item-value">+1 (800) 555-LEARN</div></div></div>
+      <div class="contact-item"><div class="contact-icon">📍</div><div><div class="contact-item-label">Office</div><div class="contact-item-value">340 Learning Ave, San Francisco, CA</div></div></div>
+      <div class="contact-item"><div class="contact-icon">⏰</div><div><div class="contact-item-label">Support Hours</div><div class="contact-item-value">Mon – Fri, 9am – 6pm PST</div></div></div>
+    </div>
+  </div>
+  <div class="contact-form reveal">
+    <div class="form-title">Send Us a Message</div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">First Name</label><input class="form-input" type="text" placeholder="John" id="fname"></div>
+      <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" type="text" placeholder="Doe" id="lname"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" type="email" placeholder="john@example.com" id="femail"></div>
+    <div class="form-group">
+      <label class="form-label">Topic</label>
+      <select class="form-select form-input" id="ftopic">
+        <option value="" disabled selected>Select a topic...</option>
+        <option>Course Enquiry</option><option>Technical Support</option><option>Billing & Payments</option><option>Partnerships</option><option>Become a Mentor</option><option>Other</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" placeholder="Tell us how we can help..." id="fmessage"></textarea></div>
+    <button class="form-submit" onclick="submitForm()"><span>Send Message →</span></button>
+    <div class="form-success" id="formSuccess"><div class="form-success-icon">✅</div><div class="form-success-text">Message sent! We'll get back to you within 24 hours.</div></div>
+  </div>
+</div>
+<div class="faq-section">
+  <div class="section-header reveal"><div><div class="section-label">Common Questions</div><h2 class="section-title">Frequently Asked</h2></div></div>
+  <div class="reveal" style="max-width:800px">
+    <div class="faq-item open">
+      <div class="faq-q" onclick="toggleFaq(this)">How do I get started with a course? <span>+</span></div>
+      <div class="faq-a">Simply browse our course catalog, pick one that interests you, and click "Enroll Now." You'll get instant lifetime access to all videos and materials.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Do you offer refunds? <span>+</span></div>
+      <div class="faq-a">Yes! Every course comes with a 30-day money-back guarantee, no questions asked.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Will I get a certificate? <span>+</span></div>
+      <div class="faq-a">Yes, every completed course includes a certificate of completion you can add to your LinkedIn and resume.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How can I become a mentor? <span>+</span></div>
+      <div class="faq-a">Select "Become a Mentor" in the contact form above and tell us about your expertise. Our team reviews applications weekly.</div>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="footer-top">
+    <div><div class="footer-brand"><span></span>Lumina Academy</div><p class="footer-desc">Empowering learners worldwide with industry-leading education and mentorship since 2020.</p></div>
+    <div><div class="footer-col-title">Courses</div><ul class="footer-links"><li><a href="courses.html">All Courses</a></li><li><a href="courses.html?cat=ai">AI & ML</a></li><li><a href="courses.html?cat=webdev">Web Dev</a></li></ul></div>
+    <div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a href="about.html">About Us</a></li><li><a href="mentors.html">Mentors</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div><div class="footer-col-title">Support</div><ul class="footer-links"><li><a href="#">Help Center</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Use</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 Lumina Academy. All rights reserved.</span><div class="footer-social"><div class="social-btn">𝕏</div><div class="social-btn">in</div><div class="social-btn">▶</div><div class="social-btn">ig</div></div></div>
+</footer>
+<script src="main.js"></script>
+<script>
+function submitForm(){
+  const fname=document.getElementById('fname').value.trim();
+  const femail=document.getElementById('femail').value.trim();
+  const fmessage=document.getElementById('fmessage').value.trim();
+  if(!fname||!femail||!fmessage){alert('Please fill in your name, email, and message.');return;}
+  document.getElementById('formSuccess').classList.add('show');
+  document.getElementById('fname').value='';document.getElementById('lname').value='';
+  document.getElementById('femail').value='';document.getElementById('ftopic').selectedIndex=0;
+  document.getElementById('fmessage').value='';
+  setTimeout(()=>document.getElementById('formSuccess').classList.remove('show'),5000);
+}
+function toggleFaq(q){q.parentElement.classList.toggle('open');}
+</script>
+</body>
+</html>

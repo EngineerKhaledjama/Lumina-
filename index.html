@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumina Academy — Learn Beyond Limits</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* ── Hero ── */
+.hero { min-height:100vh;padding:10rem 3rem 5rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;overflow:hidden; }
+.hero-bg { position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 60% 50% at 75% 50%,rgba(26,143,160,0.08) 0%,transparent 70%),radial-gradient(ellipse 40% 60% at 20% 80%,rgba(232,160,32,0.07) 0%,transparent 60%); }
+.orb { position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none;animation:drift linear infinite; }
+.orb-1{width:320px;height:320px;background:rgba(26,143,160,0.12);top:10%;right:5%;animation-duration:18s}
+.orb-2{width:200px;height:200px;background:rgba(232,160,32,0.14);bottom:15%;right:25%;animation-duration:24s;animation-direction:reverse}
+.orb-3{width:160px;height:160px;background:rgba(232,92,58,0.1);top:40%;left:5%;animation-duration:20s}
+@keyframes drift{0%,100%{transform:translate(0,0) rotate(0deg)}25%{transform:translate(30px,-20px) rotate(90deg)}50%{transform:translate(-20px,30px) rotate(180deg)}75%{transform:translate(20px,20px) rotate(270deg)}}
+.hero-content{position:relative;z-index:1}
+.hero-tag{display:inline-flex;align-items:center;gap:.5rem;font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1.5rem;animation:fadeUp .7s .2s ease both}
+.hero-tag::before{content:'';display:inline-block;width:24px;height:1px;background:var(--teal)}
+.hero-headline{font-family:'Playfair Display',serif;font-size:clamp(3rem,6vw,5.5rem);font-weight:900;line-height:1.0;letter-spacing:-0.03em;margin-bottom:1.5rem;animation:fadeUp .7s .3s ease both}
+.hero-headline em{font-style:italic;color:var(--teal);position:relative}
+.hero-headline em::after{content:'';position:absolute;bottom:4px;left:0;right:0;height:3px;background:var(--gold);transform:scaleX(0);transform-origin:left;animation:scaleIn .8s 1s ease forwards}
+@keyframes scaleIn{to{transform:scaleX(1)}}
+.hero-sub{font-size:1.05rem;color:rgba(13,13,20,0.6);max-width:420px;line-height:1.8;margin-bottom:2.5rem;animation:fadeUp .7s .4s ease both}
+.hero-actions{display:flex;gap:1rem;align-items:center;animation:fadeUp .7s .5s ease both;flex-wrap:wrap}
+.btn-secondary{display:flex;align-items:center;gap:.5rem;font-family:'Space Mono',monospace;font-size:.78rem;letter-spacing:.05em;color:var(--ink);text-decoration:none;opacity:.7;transition:opacity .2s,gap .2s}
+.btn-secondary:hover{opacity:1;gap:.8rem}
+.hero-stats{display:flex;gap:2.5rem;margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(13,13,20,0.1);animation:fadeUp .7s .6s ease both;flex-wrap:wrap}
+.stat-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--ink);line-height:1}
+.stat-num sup{font-size:1rem;color:var(--gold)}
+.stat-label{font-size:.75rem;color:rgba(13,13,20,0.5);margin-top:.25rem;letter-spacing:.03em}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── Hero Visual ── */
+.hero-visual{position:relative;z-index:1;animation:fadeUp .8s .4s ease both}
+.course-card-showcase{background:white;border:1px solid rgba(13,13,20,0.08);padding:2rem;position:relative;box-shadow:20px 20px 60px var(--shadow)}
+.course-card-showcase::before{content:'';position:absolute;top:-12px;left:24px;width:60px;height:12px;background:var(--gold)}
+.course-thumb{width:100%;height:180px;background:linear-gradient(135deg,var(--ink) 0%,#1a2540 50%,#0d2035 100%);position:relative;overflow:hidden;margin-bottom:1.5rem}
+.course-thumb-pattern{position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(255,255,255,0.03) 20px,rgba(255,255,255,0.03) 40px)}
+.course-thumb-icon{position:absolute;bottom:1.2rem;left:1.2rem;width:48px;height:48px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:1.4rem}
+.course-tag-badge{position:absolute;top:1rem;right:1rem;background:var(--coral);color:white;font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;padding:.3rem .6rem}
+.course-meta{display:flex;align-items:center;gap:.5rem;font-family:'Space Mono',monospace;font-size:.65rem;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.6rem}
+.course-title-card{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin-bottom:.8rem;line-height:1.3}
+.course-desc{font-size:.85rem;color:rgba(13,13,20,0.55);line-height:1.7;margin-bottom:1.2rem}
+.course-footer{display:flex;align-items:center;justify-content:space-between;padding-top:1rem;border-top:1px solid rgba(13,13,20,0.07);flex-wrap:wrap;gap:.8rem}
+.course-instructor{display:flex;align-items:center;gap:.7rem}
+.instructor-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--ink));display:flex;align-items:center;justify-content:center;color:white;font-size:.7rem;font-weight:700}
+.instructor-name{font-size:.78rem;font-weight:500;line-height:1.3}
+.instructor-role{font-size:.68rem;color:rgba(13,13,20,0.45)}
+.course-price{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700}
+.course-price span{font-size:.75rem;font-family:'DM Sans',sans-serif;font-weight:400;color:rgba(13,13,20,0.4);text-decoration:line-through;margin-left:.3rem}
+.float-card{position:absolute;background:white;border:1px solid rgba(13,13,20,0.08);padding:.8rem 1.1rem;font-size:.78rem;box-shadow:10px 10px 30px var(--shadow);animation:floatCard ease-in-out infinite}
+.float-card-1{top:-2rem;right:-2rem;animation-duration:4s}
+.float-card-2{bottom:-1.5rem;left:-2rem;animation-duration:5s;animation-delay:1s}
+@keyframes floatCard{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.float-label{font-family:'Space Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(13,13,20,0.4);margin-bottom:.2rem}
+.float-value{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--teal)}
+.float-stars{color:var(--gold);font-size:.75rem;margin-bottom:.1rem}
+
+/* ── Marquee ── */
+.marquee-section{background:var(--ink);padding:1rem 0;overflow:hidden}
+.marquee-track{display:flex;animation:marqueeScroll 20s linear infinite;white-space:nowrap}
+@keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.marquee-item{display:inline-flex;align-items:center;gap:1rem;padding:0 2rem;font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,240,232,0.5)}
+.marquee-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;flex-shrink:0}
+
+/* ── Categories ── */
+.categories-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;background:var(--ink)}
+.category-card{background:var(--paper);padding:2rem;cursor:none;transition:background .3s;position:relative;overflow:hidden;text-decoration:none;display:block}
+.category-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--gold);transform:scaleX(0);transition:transform .3s ease}
+.category-card:hover{background:var(--cream)}
+.category-card:hover::after{transform:scaleX(1)}
+.cat-icon{font-size:2rem;margin-bottom:1.2rem;display:block;transition:transform .3s}
+.category-card:hover .cat-icon{transform:scale(1.2) rotate(-5deg)}
+.cat-name{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:.4rem;color:var(--ink)}
+.cat-count{font-family:'Space Mono',monospace;font-size:.68rem;color:rgba(13,13,20,0.4);letter-spacing:.06em}
+.cat-arrow{position:absolute;top:1.5rem;right:1.5rem;opacity:0;transform:translate(-4px,4px);transition:opacity .3s,transform .3s;font-size:1.1rem;color:var(--teal)}
+.category-card:hover .cat-arrow{opacity:1;transform:translate(0,0)}
+
+/* ── Courses Grid ── */
+.courses-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.course-item{background:white;border:1px solid rgba(13,13,20,0.07);transition:transform .3s,box-shadow .3s;cursor:none;text-decoration:none;display:block;color:var(--ink)}
+.course-item:hover{transform:translateY(-8px);box-shadow:0 24px 60px var(--shadow)}
+.ci-thumb{height:200px;position:relative;overflow:hidden}
+.ci-thumb-bg{position:absolute;inset:0;transition:transform .4s ease}
+.course-item:hover .ci-thumb-bg{transform:scale(1.06)}
+.bg-1{background:linear-gradient(135deg,#0d2035 0%,#1a4060 100%)}
+.bg-2{background:linear-gradient(135deg,#2d1520 0%,#6b2040 100%)}
+.bg-3{background:linear-gradient(135deg,#0d2520 0%,#1a5040 100%)}
+.bg-4{background:linear-gradient(135deg,#251520 0%,#503040 100%)}
+.bg-5{background:linear-gradient(135deg,#201505 0%,#604020 100%)}
+.bg-6{background:linear-gradient(135deg,#050d20 0%,#102050 100%)}
+.ci-thumb-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:24px 24px}
+.ci-badge{position:absolute;top:1rem;left:1rem;background:var(--gold);color:var(--ink);font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.07em;text-transform:uppercase;padding:.25rem .55rem;font-weight:700}
+.ci-emoji{position:absolute;bottom:1rem;right:1rem;font-size:2.5rem;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.3))}
+.ci-body{padding:1.5rem}
+.ci-category{font-family:'Space Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:var(--teal);margin-bottom:.5rem}
+.ci-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;line-height:1.3;margin-bottom:.7rem}
+.ci-meta{display:flex;gap:1rem;font-size:.75rem;color:rgba(13,13,20,0.45);margin-bottom:1.2rem;flex-wrap:wrap}
+.ci-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:1rem;border-top:1px solid rgba(13,13,20,0.06)}
+.ci-rating{display:flex;align-items:center;gap:.3rem}
+.stars{color:var(--gold);font-size:.7rem}
+.rating-num{font-size:.78rem;font-weight:500}
+.ci-price{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--coral)}
+
+/* ── Testimonials ── */
+.testimonial-section{background:var(--ink);padding:6rem 3rem;position:relative;overflow:hidden}
+.test-bg{position:absolute;inset:0;background-image:radial-gradient(circle at 20% 80%,rgba(26,143,160,0.15) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(232,160,32,0.1) 0%,transparent 40%)}
+.test-inner{position:relative;z-index:1;max-width:760px;margin:0 auto;text-align:center}
+.test-quote-mark{font-family:'Playfair Display',serif;font-size:8rem;line-height:0.7;color:var(--gold);opacity:.3;margin-bottom:1rem}
+.test-quote{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,3vw,2rem);font-style:italic;color:var(--paper);line-height:1.5;margin-bottom:2rem;font-weight:400}
+.test-author{display:flex;align-items:center;justify-content:center;gap:1rem}
+.test-avatar{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--gold));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--ink);font-weight:700}
+.test-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--paper)}
+.test-title-sub{font-size:.78rem;color:rgba(245,240,232,0.5)}
+.test-dots{display:flex;justify-content:center;gap:.5rem;margin-top:2.5rem}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(245,240,232,0.2);cursor:pointer;transition:background .2s,transform .2s}
+.dot.active{background:var(--gold);transform:scale(1.3)}
+
+/* ── Newsletter ── */
+.newsletter{padding:5rem 3rem;background:var(--cream);display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;border-top:1.5px solid rgba(13,13,20,0.08)}
+.nl-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:900;line-height:1.1;letter-spacing:-0.02em}
+.nl-title em{font-style:italic;color:var(--teal)}
+.nl-sub{font-size:.9rem;color:rgba(13,13,20,0.55);margin-top:.8rem}
+.nl-form{display:flex;gap:0}
+.nl-input{flex:1;padding:1rem 1.2rem;border:1.5px solid rgba(13,13,20,0.15);background:white;font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s;cursor:none}
+.nl-input:focus{border-color:var(--teal)}
+.nl-input::placeholder{color:rgba(13,13,20,0.35)}
+.nl-btn{background:var(--ink);color:var(--paper);padding:1rem 1.5rem;border:none;cursor:none;font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;transition:background .25s}
+.nl-btn:hover{background:var(--coral)}
+
+/* ── Mobile hero ── */
+@media(max-width:768px){
+  .hero{grid-template-columns:1fr;padding:7rem 1.25rem 3.5rem;gap:3rem;min-height:auto}
+  .float-card{display:none}
+  .categories-grid{grid-template-columns:repeat(2,1fr)}
+  .courses-grid{grid-template-columns:1fr}
+  .newsletter{grid-template-columns:1fr;padding:3.5rem 1.25rem;gap:1.5rem}
+  .nl-form{flex-direction:column}
+  .testimonial-section{padding:4rem 1.25rem}
+}
+@media(max-width:1024px){
+  .hero{padding:8rem 2rem 4rem;gap:2.5rem}
+  .categories-grid{grid-template-columns:repeat(4,1fr)}
+  .courses-grid{grid-template-columns:repeat(2,1fr);gap:1.5rem}
+}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="progress-bar" id="progressBar" style="width:0%"></div>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="courses.html" onclick="closeMobileNav()">Courses</a>
+  <a href="index.html#categories" onclick="closeMobileNav()">Topics</a>
+  <a href="mentors.html" onclick="closeMobileNav()">Mentors</a>
+  <a href="about.html" onclick="closeMobileNav()">About</a>
+  <a href="contact.html" onclick="closeMobileNav()">Contact</a>
+  <button class="mobile-cta" onclick="window.location='courses.html'">Start Learning →</button>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo"><span></span>Lumina</a>
+  <ul class="nav-links">
+    <li><a href="courses.html">Courses</a></li>
+    <li><a href="index.html#categories">Topics</a></li>
+    <li><a href="mentors.html">Mentors</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="window.location='contact.html'">Start Learning</button>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleMobileNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+  <div class="hero-content">
+    <div class="hero-tag">The Future of Learning</div>
+    <h1 class="hero-headline">Unlock Your<br><em>Potential</em><br>Today</h1>
+    <p class="hero-sub">World-class courses from industry leaders. Learn at your pace, master new skills, and transform your career with Lumina Academy.</p>
+    <div class="hero-actions">
+      <a href="courses.html" class="btn-primary"><span>Browse Courses →</span></a>
+      <a href="about.html" class="btn-secondary">Learn about us <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num" id="s1">0<sup>+</sup></div><div class="stat-label">Active Students</div></div>
+      <div><div class="stat-num" id="s2">0<sup>+</sup></div><div class="stat-label">Expert Courses</div></div>
+      <div><div class="stat-num" id="s3">0<sup>%</sup></div><div class="stat-label">Satisfaction Rate</div></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="course-card-showcase">
+      <div class="course-thumb">
+        <div class="course-thumb-pattern"></div>
+        <div class="course-tag-badge">🔥 Bestseller</div>
+        <div class="course-thumb-icon">⚡</div>
+      </div>
+      <div class="course-meta"><span>●</span> Advanced · 42 Lessons</div>
+      <div class="course-title-card">Full-Stack Web Development Masterclass</div>
+      <div class="course-desc">From HTML to deployment — build real projects with React, Node.js, and PostgreSQL.</div>
+      <div class="course-footer">
+        <div class="course-instructor">
+          <div class="instructor-avatar">AK</div>
+          <div><div class="instructor-name">Alex Kim</div><div class="instructor-role">Senior Engineer, Google</div></div>
+        </div>
+        <div class="course-price">$49 <span>$120</span></div>
+      </div>
+    </div>
+    <div class="float-card float-card-1"><div class="float-stars">★★★★★</div><div class="float-label">Course Rating</div><div class="float-value">4.9 / 5.0</div></div>
+    <div class="float-card float-card-2"><div class="float-label">New Students</div><div class="float-value">+2,400</div></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item"><span class="marquee-dot"></span>Web Development</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Data Science</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>UI/UX Design</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Machine Learning</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Digital Marketing</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Cybersecurity</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Cloud Computing</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Blockchain</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Mobile Development</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Game Design</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Web Development</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Data Science</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>UI/UX Design</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Machine Learning</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Digital Marketing</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Cybersecurity</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Cloud Computing</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Game Design</span>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section class="section" id="categories">
+  <div class="section-header reveal">
+    <div><div class="section-label">Explore Topics</div><h2 class="section-title">Learn What<br>Matters Most</h2></div>
+    <a href="courses.html" class="view-all">All Categories →</a>
+  </div>
+  <div class="categories-grid reveal">
+    <a href="courses.html?cat=webdev" class="category-card"><span class="cat-icon">💻</span><div class="cat-name">Web Dev</div><div class="cat-count">84 Courses</div><span class="cat-arrow">↗</span></a>
+    <a href="courses.html?cat=data" class="category-card"><span class="cat-icon">📊</span><div class="cat-name">Data Science</div><div class="cat-count">56 Courses</div><span class="cat-arrow">↗</span></a>
+    <a href="courses.html?cat=design" class="category-card"><span class="cat-icon">🎨</span><div class="cat-name">Design</div><div class="cat-count">72 Courses</div><span class="cat-arrow">↗</span></a>
+    <a href="courses.html?cat=ai" class="category-card"><span class="cat-icon">🤖</span><div class="cat-name">AI & ML</div><div class="cat-count">38 Courses</div><span class="cat-arrow">↗</span></a>
+    <a href="courses.html?cat=business" class="category-card"><span class="cat-icon">📈</span><div class="cat-name">Business</div><div class="cat-count">64 Courses</div><span class="cat-arrow">↗</span></a>
+    <a href="courses.html?cat=security" class="category-card"><span class="cat-icon">🔐</span><div class="cat-name">Security</div><div class="cat-count">29 Courses</div><span class="cat-arrow">↗</span></a>
+    <a href="courses.html?cat=cloud" class="category-card"><span class="cat-icon">☁️</span><div class="cat-name">Cloud</div><div class="cat-count">41 Courses</div><span class="cat-arrow">↗</span></a>
+    <a href="courses.html?cat=mobile" class="category-card"><span class="cat-icon">📱</span><div class="cat-name">Mobile</div><div class="cat-count">33 Courses</div><span class="cat-arrow">↗</span></a>
+  </div>
+</section>
+
+<!-- FEATURED COURSES -->
+<section class="section" id="courses" style="background:var(--cream)">
+  <div class="section-header reveal">
+    <div><div class="section-label">Handpicked For You</div><h2 class="section-title">Featured<br>Courses</h2></div>
+    <a href="courses.html" class="view-all">All Courses →</a>
+  </div>
+  <div class="courses-grid reveal">
+    <a href="courses/machine-learning.html" class="course-item">
+      <div class="ci-thumb"><div class="ci-thumb-bg bg-1"></div><div class="ci-thumb-grid"></div><div class="ci-badge">New</div><div class="ci-emoji">🧠</div></div>
+      <div class="ci-body"><div class="ci-category">Artificial Intelligence</div><div class="ci-title">Machine Learning A-Z: Python & R in Data Science</div><div class="ci-meta"><span>⏱ 28h</span><span>📚 180 lessons</span><span>🎓 Beginner</span></div><div class="ci-bottom"><div class="ci-rating"><span class="stars">★★★★★</span><span class="rating-num">4.8 (3.2k)</span></div><div class="ci-price">$39</div></div></div>
+    </a>
+    <a href="courses/ux-design.html" class="course-item">
+      <div class="ci-thumb"><div class="ci-thumb-bg bg-2"></div><div class="ci-thumb-grid"></div><div class="ci-badge">Popular</div><div class="ci-emoji">🎨</div></div>
+      <div class="ci-body"><div class="ci-category">UI/UX Design</div><div class="ci-title">Complete UI/UX Design Bootcamp with Figma</div><div class="ci-meta"><span>⏱ 36h</span><span>📚 210 lessons</span><span>🎓 All Levels</span></div><div class="ci-bottom"><div class="ci-rating"><span class="stars">★★★★★</span><span class="rating-num">4.9 (5.1k)</span></div><div class="ci-price">$59</div></div></div>
+    </a>
+    <a href="courses/react-typescript.html" class="course-item">
+      <div class="ci-thumb"><div class="ci-thumb-bg bg-3"></div><div class="ci-thumb-grid"></div><div class="ci-badge">🔥 Hot</div><div class="ci-emoji">⚛️</div></div>
+      <div class="ci-body"><div class="ci-category">Web Development</div><div class="ci-title">React & TypeScript: Build Production Apps</div><div class="ci-meta"><span>⏱ 22h</span><span>📚 145 lessons</span><span>🎓 Intermediate</span></div><div class="ci-bottom"><div class="ci-rating"><span class="stars">★★★★★</span><span class="rating-num">4.7 (2.8k)</span></div><div class="ci-price">$49</div></div></div>
+    </a>
+    <a href="courses/python-data.html" class="course-item">
+      <div class="ci-thumb"><div class="ci-thumb-bg bg-4"></div><div class="ci-thumb-grid"></div><div class="ci-badge">Updated</div><div class="ci-emoji">📊</div></div>
+      <div class="ci-body"><div class="ci-category">Data Science</div><div class="ci-title">Python for Data Analysis & Visualization</div><div class="ci-meta"><span>⏱ 18h</span><span>📚 120 lessons</span><span>🎓 Beginner</span></div><div class="ci-bottom"><div class="ci-rating"><span class="stars">★★★★☆</span><span class="rating-num">4.6 (1.9k)</span></div><div class="ci-price">$34</div></div></div>
+    </a>
+    <a href="courses/ethical-hacking.html" class="course-item">
+      <div class="ci-thumb"><div class="ci-thumb-bg bg-5"></div><div class="ci-thumb-grid"></div><div class="ci-badge">Free</div><div class="ci-emoji">🔐</div></div>
+      <div class="ci-body"><div class="ci-category">Cybersecurity</div><div class="ci-title">Ethical Hacking & Penetration Testing</div><div class="ci-meta"><span>⏱ 40h</span><span>📚 250 lessons</span><span>🎓 Advanced</span></div><div class="ci-bottom"><div class="ci-rating"><span class="stars">★★★★★</span><span class="rating-num">4.9 (4.4k)</span></div><div class="ci-price">Free</div></div></div>
+    </a>
+    <a href="courses/aws-architect.html" class="course-item">
+      <div class="ci-thumb"><div class="ci-thumb-bg bg-6"></div><div class="ci-thumb-grid"></div><div class="ci-badge">Trending</div><div class="ci-emoji">☁️</div></div>
+      <div class="ci-body"><div class="ci-category">Cloud Computing</div><div class="ci-title">AWS Certified Solutions Architect — 2026</div><div class="ci-meta"><span>⏱ 30h</span><span>📚 195 lessons</span><span>🎓 Intermediate</span></div><div class="ci-bottom"><div class="ci-rating"><span class="stars">★★★★★</span><span class="rating-num">4.8 (3.7k)</span></div><div class="ci-price">$69</div></div></div>
+    </a>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonial-section">
+  <div class="test-bg"></div>
+  <div class="test-inner reveal">
+    <div class="test-quote-mark">"</div>
+    <p class="test-quote" id="testQuote">Lumina completely changed my career trajectory. The courses are thoughtfully structured, the instructors are world-class, and the community is incredibly supportive.</p>
+    <div class="test-author">
+      <div class="test-avatar" id="testAvatar">SR</div>
+      <div><div class="test-name" id="testName">Sarah Rahman</div><div class="test-title-sub" id="testRole">Software Engineer at Stripe</div></div>
+    </div>
+    <div class="test-dots">
+      <div class="dot active" onclick="showTest(0)"></div>
+      <div class="dot" onclick="showTest(1)"></div>
+      <div class="dot" onclick="showTest(2)"></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter reveal">
+  <div><h2 class="nl-title">Stay <em>Ahead</em> of the Curve</h2><p class="nl-sub">Get new courses, industry insights, and exclusive deals straight to your inbox. No spam, ever.</p></div>
+  <div><div class="nl-form"><input class="nl-input" type="email" placeholder="Enter your email address"><button class="nl-btn" onclick="subscribeNewsletter()">Subscribe</button></div></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div><div class="footer-brand"><span></span>Lumina Academy</div><p class="footer-desc">Empowering learners worldwide with industry-leading education and mentorship since 2020.</p></div>
+    <div><div class="footer-col-title">Courses</div><ul class="footer-links"><li><a href="courses.html?cat=webdev">Web Development</a></li><li><a href="courses.html?cat=data">Data Science</a></li><li><a href="courses.html?cat=design">Design</a></li><li><a href="courses.html?cat=ai">AI & ML</a></li><li><a href="courses.html?cat=business">Business</a></li></ul></div>
+    <div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a href="about.html">About Us</a></li><li><a href="mentors.html">Mentors</a></li><li><a href="#">Blog</a></li><li><a href="#">Careers</a></li></ul></div>
+    <div><div class="footer-col-title">Support</div><ul class="footer-links"><li><a href="contact.html">Contact</a></li><li><a href="#">Help Center</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Use</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 Lumina Academy. All rights reserved.</span><div class="footer-social"><div class="social-btn">𝕏</div><div class="social-btn">in</div><div class="social-btn">▶</div><div class="social-btn">ig</div></div></div>
+</footer>
+
+<script src="main.js"></script>
+<script>
+  const tests=[
+    {q:"Lumina completely changed my career trajectory. The courses are thoughtfully structured, the instructors are world-class, and the community is incredibly supportive.",n:"Sarah Rahman",t:"Software Engineer at Stripe",i:"SR"},
+    {q:"I went from knowing nothing about data science to landing a job at a Fortune 500 company in just 8 months. The curriculum is exceptional.",n:"James Okonkwo",t:"Data Analyst at McKinsey",i:"JO"},
+    {q:"The design courses at Lumina are unlike anything I've seen elsewhere. Practical, current, and beautifully taught. I doubled my freelance income within a year.",n:"Mia Chen",t:"Senior UX Designer at Figma",i:"MC"}
+  ];
+  let cur=0;
+  function showTest(i){cur=i;const t=tests[i];document.getElementById('testQuote').textContent=t.q;document.getElementById('testName').textContent=t.n;document.getElementById('testRole').textContent=t.t;document.getElementById('testAvatar').textContent=t.i;document.querySelectorAll('.dot').forEach((d,j)=>d.classList.toggle('active',j===i));}
+  setInterval(()=>showTest((cur+1)%tests.length),5000);
+
+  function animCount(el,target,suf){let c=0;const step=Math.ceil(target/60);const t=setInterval(()=>{c=Math.min(c+step,target);el.innerHTML=c+'<sup>'+suf+'</sup>';if(c>=target)clearInterval(t);},24);}
+  const so=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){animCount(document.getElementById('s1'),12000,'+');animCount(document.getElementById('s2'),340,'+');animCount(document.getElementById('s3'),98,'%');so.disconnect();}});},{threshold:.5});
+  const hs=document.querySelector('.hero-stats');if(hs)so.observe(hs);
+
+  function subscribeNewsletter(){const i=document.querySelector('.nl-input');if(i.value.trim()){alert('🎉 Thanks for subscribing! Check your inbox soon.');i.value='';}else{alert('Please enter a valid email.');}}
+</script>
+</body>
+</html>
