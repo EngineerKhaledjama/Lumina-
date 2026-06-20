@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentors — Lumina Academy</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.page-hero{padding:9rem 3rem 5rem;background:var(--ink);position:relative;overflow:hidden}
+.page-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 80% 50%,rgba(26,143,160,0.15),transparent 70%),radial-gradient(ellipse 40% 60% at 10% 80%,rgba(232,160,32,0.1),transparent 60%)}
+.page-hero-inner{position:relative;z-index:1}
+.page-tag{font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.page-tag::before{content:'';display:inline-block;width:20px;height:1px;background:var(--gold)}
+.page-title{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;color:var(--paper);line-height:1;letter-spacing:-0.03em;margin-bottom:1rem}
+.page-title em{font-style:italic;color:var(--teal)}
+.page-sub{font-size:1rem;color:rgba(245,240,232,0.55);max-width:520px;line-height:1.8}
+
+.mentors-page{padding:5rem 3rem}
+.mentors-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
+.mentor-card{background:white;border:1px solid rgba(13,13,20,0.07);padding:2rem 1.5rem;text-align:center;transition:transform .3s,box-shadow .3s;cursor:none;position:relative;overflow:hidden}
+.mentor-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--gold));transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+.mentor-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px var(--shadow)}
+.mentor-card:hover::before{transform:scaleX(1)}
+.mentor-avatar{width:80px;height:80px;border-radius:50%;margin:0 auto 1.2rem;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:var(--paper);position:relative}
+.mentor-avatar::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:2px solid var(--gold);opacity:0;transition:opacity .3s}
+.mentor-card:hover .mentor-avatar::after{opacity:1}
+.mentor-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:.3rem}
+.mentor-role{font-family:'Space Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.07em;color:var(--teal);margin-bottom:.8rem}
+.mentor-bio{font-size:.82rem;color:rgba(13,13,20,0.55);line-height:1.6;margin-bottom:1.2rem}
+.mentor-stats{display:flex;justify-content:center;gap:1.5rem;padding-top:1rem;border-top:1px solid rgba(13,13,20,0.06);margin-bottom:1.2rem}
+.mentor-stat-num{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--ink);line-height:1}
+.mentor-stat-label{font-size:.62rem;color:rgba(13,13,20,0.4);margin-top:.2rem}
+.mentor-view-btn{display:inline-block;font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:2px;opacity:.7;transition:opacity .2s}
+.mentor-view-btn:hover{opacity:1}
+
+@media(max-width:1024px){.mentors-grid{grid-template-columns:repeat(2,1fr)}.mentors-page{padding:4rem 2rem}}
+@media(max-width:768px){.mentors-grid{grid-template-columns:1fr;gap:1.2rem}.mentors-page{padding:3rem 1.25rem}.page-hero{padding:7rem 1.25rem 3rem}}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div><div class="cursor-ring" id="cursorRing"></div>
+<div class="progress-bar" id="progressBar" style="width:0%"></div>
+<div class="mobile-nav" id="mobileNav">
+  <a href="courses.html" onclick="closeMobileNav()">Courses</a>
+  <a href="index.html#categories" onclick="closeMobileNav()">Topics</a>
+  <a href="mentors.html" onclick="closeMobileNav()">Mentors</a>
+  <a href="about.html" onclick="closeMobileNav()">About</a>
+  <a href="contact.html" onclick="closeMobileNav()">Contact</a>
+  <div id="authSlotMobile"></div></div>
+<nav>
+  <a href="index.html" class="nav-logo"><span></span>Lumina</a>
+  <ul class="nav-links">
+    <li><a href="courses.html">Courses</a></li>
+    <li><a href="index.html#categories">Topics</a></li>
+    <li><a href="mentors.html">Mentors</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div id="authSlotDesktop"></div>
+  <button class="hamburger" id="hamburger" onclick="toggleMobileNav()"><span></span><span></span><span></span></button>
+</nav>
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-inner">
+    <div class="page-tag">Learn From The Best</div>
+    <h1 class="page-title">Meet Your<br><em>Mentors</em></h1>
+    <p class="page-sub">Industry leaders from Google, Figma, McKinsey, and AWS who are passionate about teaching what they've mastered.</p>
+  </div>
+</div>
+<div class="mentors-page">
+  <div class="mentors-grid reveal">
+    <div class="mentor-card">
+      <div class="mentor-avatar" style="background:linear-gradient(135deg,#1a4060,#1a8fa0)">AK</div>
+      <div class="mentor-name">Alex Kim</div>
+      <div class="mentor-role">Senior Engineer · Google</div>
+      <div class="mentor-bio">10+ years building scalable web systems. Former lead at Meta. Passionate about making complex engineering concepts accessible.</div>
+      <div class="mentor-stats">
+        <div><div class="mentor-stat-num">4.9</div><div class="mentor-stat-label">Rating</div></div>
+        <div><div class="mentor-stat-num">8.2k</div><div class="mentor-stat-label">Students</div></div>
+        <div><div class="mentor-stat-num">12</div><div class="mentor-stat-label">Courses</div></div>
+      </div>
+      <a href="courses/fullstack-web.html" class="mentor-view-btn">View Courses →</a>
+    </div>
+    <div class="mentor-card">
+      <div class="mentor-avatar" style="background:linear-gradient(135deg,#6b2040,#e85c3a)">SR</div>
+      <div class="mentor-name">Sofia Reyes</div>
+      <div class="mentor-role">Lead Designer · Figma</div>
+      <div class="mentor-bio">Award-winning UX designer with a decade crafting digital products used by millions. Speaker at Design+.</div>
+      <div class="mentor-stats">
+        <div><div class="mentor-stat-num">4.8</div><div class="mentor-stat-label">Rating</div></div>
+        <div><div class="mentor-stat-num">6.5k</div><div class="mentor-stat-label">Students</div></div>
+        <div><div class="mentor-stat-num">9</div><div class="mentor-stat-label">Courses</div></div>
+      </div>
+      <a href="courses/ux-design.html" class="mentor-view-btn">View Courses →</a>
+    </div>
+    <div class="mentor-card">
+      <div class="mentor-avatar" style="background:linear-gradient(135deg,#1a5040,#2d8060)">JO</div>
+      <div class="mentor-name">James Okonkwo</div>
+      <div class="mentor-role">Data Scientist · McKinsey</div>
+      <div class="mentor-bio">PhD in Applied Mathematics. Specialises in ML systems for Fortune 500 companies. Published researcher with 40+ papers.</div>
+      <div class="mentor-stats">
+        <div><div class="mentor-stat-num">4.9</div><div class="mentor-stat-label">Rating</div></div>
+        <div><div class="mentor-stat-num">5.1k</div><div class="mentor-stat-label">Students</div></div>
+        <div><div class="mentor-stat-num">7</div><div class="mentor-stat-label">Courses</div></div>
+      </div>
+      <a href="courses/machine-learning.html" class="mentor-view-btn">View Courses →</a>
+    </div>
+    <div class="mentor-card">
+      <div class="mentor-avatar" style="background:linear-gradient(135deg,#251540,#6030a0)">MC</div>
+      <div class="mentor-name">Mia Chen</div>
+      <div class="mentor-role">Cloud Architect · AWS</div>
+      <div class="mentor-bio">AWS Certified Solutions Architect and DevOps engineer. Helps startups design resilient, cost-optimised cloud infrastructure.</div>
+      <div class="mentor-stats">
+        <div><div class="mentor-stat-num">4.7</div><div class="mentor-stat-label">Rating</div></div>
+        <div><div class="mentor-stat-num">4.8k</div><div class="mentor-stat-label">Students</div></div>
+        <div><div class="mentor-stat-num">6</div><div class="mentor-stat-label">Courses</div></div>
+      </div>
+      <a href="courses/aws-architect.html" class="mentor-view-btn">View Courses →</a>
+    </div>
+  </div>
+</div>
+<section style="padding:5rem 3rem;text-align:center;background:var(--cream)">
+  <div class="section-label" style="justify-content:center">Want to Teach?</div>
+  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:900;margin-bottom:1rem;letter-spacing:-0.02em">Become a Lumina Mentor</h2>
+  <p style="color:rgba(13,13,20,0.55);margin-bottom:2rem;font-size:.95rem;max-width:480px;margin-left:auto;margin-right:auto">Share your expertise with thousands of eager learners worldwide and earn while you teach.</p>
+  <a href="contact.html" class="btn-primary"><span>Apply to Teach →</span></a>
+</section>
+<footer>
+  <div class="footer-top">
+    <div><div class="footer-brand"><span></span>Lumina Academy</div><p class="footer-desc">Empowering learners worldwide with industry-leading education and mentorship since 2020.</p></div>
+    <div><div class="footer-col-title">Courses</div><ul class="footer-links"><li><a href="courses.html">All Courses</a></li><li><a href="courses.html?cat=ai">AI & ML</a></li><li><a href="courses.html?cat=webdev">Web Dev</a></li></ul></div>
+    <div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a href="about.html">About Us</a></li><li><a href="mentors.html">Mentors</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div><div class="footer-col-title">Support</div><ul class="footer-links"><li><a href="#">Help Center</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Use</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 Lumina Academy. All rights reserved.</span><div class="footer-social"><div class="social-btn">𝕏</div><div class="social-btn">in</div><div class="social-btn">▶</div><div class="social-btn">ig</div></div></div>
+</footer>
+<script src="main.js"></script>
+<script src="auth.js"></script>
+</body>
+</html>

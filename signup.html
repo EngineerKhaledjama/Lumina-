@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up — Lumina Academy</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="cursor" id="cursor"></div><div class="cursor-ring" id="cursorRing"></div>
+
+<div class="auth-wrap">
+  <div class="auth-visual">
+    <div class="auth-visual-bg"></div>
+    <div class="auth-visual-content">
+      <div class="auth-visual-quote">"Lumina completely changed my career trajectory. The courses are thoughtfully structured and genuinely transformative."</div>
+      <div class="auth-visual-name">— Sarah Rahman, Software Engineer at Stripe</div>
+    </div>
+  </div>
+  <div class="auth-form-side">
+    <div class="auth-box">
+      <a href="index.html" class="auth-logo"><span></span>Lumina</a>
+      <h1 class="auth-title">Create Your Account</h1>
+      <p class="auth-sub">Already learning with us? <a href="login.html">Log in</a></p>
+
+      <div class="auth-error" id="authError"></div>
+
+      <div class="auth-group">
+        <label class="auth-label">Full Name</label>
+        <input type="text" class="auth-input" id="suName" placeholder="Jane Doe">
+      </div>
+      <div class="auth-group">
+        <label class="auth-label">Email Address</label>
+        <input type="email" class="auth-input" id="suEmail" placeholder="jane@example.com">
+      </div>
+      <div class="auth-group">
+        <label class="auth-label">Password</label>
+        <input type="password" class="auth-input" id="suPassword" placeholder="At least 6 characters">
+      </div>
+      <button class="auth-submit" onclick="handleSignup()">Create Account →</button>
+
+      <p class="auth-note">⚠️ Demo mode: accounts are stored only in this browser (localStorage), not on a real server. Don't use a real password.</p>
+    </div>
+  </div>
+</div>
+
+<script src="main.js"></script>
+<script src="auth.js"></script>
+<script>
+function handleSignup() {
+  const name = document.getElementById('suName').value;
+  const email = document.getElementById('suEmail').value;
+  const password = document.getElementById('suPassword').value;
+  const errBox = document.getElementById('authError');
+
+  const result = LuminaAuth.signup(name, email, password);
+  if (result.success) {
+    window.location.href = 'dashboard.html';
+  } else {
+    errBox.textContent = result.message;
+    errBox.classList.add('show');
+  }
+}
+// Allow Enter key to submit
+document.getElementById('suPassword').addEventListener('keypress', e => { if (e.key === 'Enter') handleSignup(); });
+</script>
+</body>
+</html>

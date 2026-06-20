@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Lumina Academy</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.page-hero{padding:9rem 3rem 5rem;background:var(--ink);position:relative;overflow:hidden}
+.page-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 80% 50%,rgba(26,143,160,0.15),transparent 70%),radial-gradient(ellipse 40% 60% at 10% 80%,rgba(232,160,32,0.1),transparent 60%)}
+.page-hero-inner{position:relative;z-index:1}
+.page-tag{font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.page-tag::before{content:'';display:inline-block;width:20px;height:1px;background:var(--gold)}
+.page-title{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;color:var(--paper);line-height:1;letter-spacing:-0.03em;margin-bottom:1rem}
+.page-title em{font-style:italic;color:var(--teal)}
+.page-sub{font-size:1rem;color:rgba(245,240,232,0.55);max-width:500px;line-height:1.8}
+.about-story{padding:5rem 3rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.story-text p{font-size:.95rem;color:rgba(13,13,20,0.65);line-height:1.9;margin-bottom:1.2rem}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.stat-box{background:var(--ink);padding:2rem 1.5rem}
+.stat-box:first-child{background:var(--teal);grid-column:1/-1}
+.stat-big{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;color:white;line-height:1}
+.stat-big span{color:var(--gold)}
+.stat-desc{font-size:.82rem;color:rgba(255,255,255,0.55);margin-top:.4rem}
+.values-section{background:var(--cream);padding:5rem 3rem}
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem}
+.value-card{background:white;padding:2rem;border:1px solid rgba(13,13,20,0.07);position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s}
+.value-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--gold);transform:scaleX(0);transition:transform .3s ease}
+.value-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px var(--shadow)}
+.value-card:hover::before{transform:scaleX(1)}
+.value-icon-big{font-size:2.5rem;margin-bottom:1rem}
+.value-name{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:.6rem}
+.value-desc{font-size:.85rem;color:rgba(13,13,20,0.55);line-height:1.7}
+@media(max-width:1024px){.about-story{grid-template-columns:1fr;gap:3rem;padding:4rem 2rem}.values-section{padding:4rem 2rem}}
+@media(max-width:768px){.about-story{padding:3rem 1.25rem}.values-grid{grid-template-columns:1fr}.values-section{padding:3rem 1.25rem}.page-hero{padding:7rem 1.25rem 3rem}}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div><div class="cursor-ring" id="cursorRing"></div>
+<div class="progress-bar" id="progressBar" style="width:0%"></div>
+<div class="mobile-nav" id="mobileNav">
+  <a href="courses.html" onclick="closeMobileNav()">Courses</a>
+  <a href="index.html#categories" onclick="closeMobileNav()">Topics</a>
+  <a href="mentors.html" onclick="closeMobileNav()">Mentors</a>
+  <a href="about.html" onclick="closeMobileNav()">About</a>
+  <a href="contact.html" onclick="closeMobileNav()">Contact</a>
+  <div id="authSlotMobile"></div></div>
+<nav>
+  <a href="index.html" class="nav-logo"><span></span>Lumina</a>
+  <ul class="nav-links">
+    <li><a href="courses.html">Courses</a></li>
+    <li><a href="index.html#categories">Topics</a></li>
+    <li><a href="mentors.html">Mentors</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div id="authSlotDesktop"></div>
+  <button class="hamburger" id="hamburger" onclick="toggleMobileNav()"><span></span><span></span><span></span></button>
+</nav>
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-inner">
+    <div class="page-tag">Our Story</div>
+    <h1 class="page-title">Education That<br><em>Transforms</em> Lives</h1>
+    <p class="page-sub">Founded in 2020 with a simple belief — world-class education should be accessible to everyone, everywhere.</p>
+  </div>
+</div>
+<div class="about-story">
+  <div class="story-text reveal">
+    <div class="section-label">Who We Are</div>
+    <h2 class="section-title" style="margin-bottom:1.5rem">Built by Learners,<br>for Learners</h2>
+    <p>Lumina Academy was founded in 2020 by a team of engineers, designers, and educators who believed the best education shouldn't be locked behind expensive university tuition or geography.</p>
+    <p>We partner with industry leaders at Google, Figma, McKinsey, and AWS to create courses that are practical, current, and genuinely career-changing — not just theory you'll forget.</p>
+    <p>Today, over 12,000 learners in 80+ countries have transformed their careers through Lumina. From absolute beginners to senior professionals, our community learns together, grows together, and succeeds together.</p>
+    <div style="margin-top:2rem"><a href="courses.html" class="btn-primary"><span>Explore Courses →</span></a></div>
+  </div>
+  <div class="stats-grid reveal">
+    <div class="stat-box"><div class="stat-big">12,000<span>+</span></div><div class="stat-desc">Students worldwide have transformed their careers</div></div>
+    <div class="stat-box"><div class="stat-big">80<span>+</span></div><div class="stat-desc">Countries in our global community</div></div>
+    <div class="stat-box"><div class="stat-big">340<span>+</span></div><div class="stat-desc">Expert-led courses</div></div>
+    <div class="stat-box"><div class="stat-big">98<span>%</span></div><div class="stat-desc">Student satisfaction rate</div></div>
+  </div>
+</div>
+<div class="values-section">
+  <div class="section-header reveal">
+    <div><div class="section-label">What We Stand For</div><h2 class="section-title">Our Core<br>Values</h2></div>
+  </div>
+  <div class="values-grid reveal">
+    <div class="value-card"><div class="value-icon-big">🎯</div><div class="value-name">Outcome-Focused</div><div class="value-desc">Every course is built around real career outcomes. We measure our success by your success in landing jobs, promotions, and freelance clients.</div></div>
+    <div class="value-card"><div class="value-icon-big">🌍</div><div class="value-name">Globally Accessible</div><div class="value-desc">Affordable pricing, multilingual support, and lifetime access mean learning never stops, no matter where you are in the world.</div></div>
+    <div class="value-card"><div class="value-icon-big">🤝</div><div class="value-name">Community-Driven</div><div class="value-desc">Join a thriving network of learners, mentors, and alumni who support each other every step of the learning journey.</div></div>
+    <div class="value-card"><div class="value-icon-big">🔬</div><div class="value-name">Always Current</div><div class="value-desc">Our courses are updated regularly so you always learn what the industry actually uses today, not outdated techniques from 5 years ago.</div></div>
+    <div class="value-card"><div class="value-icon-big">⚡</div><div class="value-name">Learn by Doing</div><div class="value-desc">Every course includes real projects, exercises, and challenges so you build a portfolio as you learn, not just watch videos.</div></div>
+    <div class="value-card"><div class="value-icon-big">🏆</div><div class="value-name">Excellence</div><div class="value-desc">We only work with instructors who are active practitioners — the people actually doing the work at the world's best companies.</div></div>
+  </div>
+</div>
+<section style="padding:5rem 3rem;text-align:center;background:var(--ink);position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;background:radial-gradient(circle at center,rgba(26,143,160,0.1),transparent 70%)"></div>
+  <div style="position:relative;z-index:1">
+    <div class="section-label" style="justify-content:center">Ready to Start?</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:var(--paper);margin-bottom:1rem;letter-spacing:-0.02em">Join 12,000+ Learners<br>Changing Their Lives</h2>
+    <p style="color:rgba(245,240,232,0.5);margin-bottom:2rem;font-size:.95rem">Start with any course today. No experience needed.</p>
+    <a href="courses.html" class="btn-primary"><span>Browse All Courses →</span></a>
+  </div>
+</section>
+<footer>
+  <div class="footer-top">
+    <div><div class="footer-brand"><span></span>Lumina Academy</div><p class="footer-desc">Empowering learners worldwide with industry-leading education and mentorship since 2020.</p></div>
+    <div><div class="footer-col-title">Courses</div><ul class="footer-links"><li><a href="courses.html">All Courses</a></li><li><a href="courses.html?cat=ai">AI & ML</a></li><li><a href="courses.html?cat=webdev">Web Dev</a></li></ul></div>
+    <div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a href="about.html">About Us</a></li><li><a href="mentors.html">Mentors</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div><div class="footer-col-title">Support</div><ul class="footer-links"><li><a href="#">Help Center</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Use</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 Lumina Academy. All rights reserved.</span><div class="footer-social"><div class="social-btn">𝕏</div><div class="social-btn">in</div><div class="social-btn">▶</div><div class="social-btn">ig</div></div></div>
+</footer>
+<script src="main.js"></script>
+<script src="auth.js"></script>
+</body>
+</html>

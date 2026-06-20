@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log In — Lumina Academy</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="cursor" id="cursor"></div><div class="cursor-ring" id="cursorRing"></div>
+
+<div class="auth-wrap">
+  <div class="auth-visual">
+    <div class="auth-visual-bg"></div>
+    <div class="auth-visual-content">
+      <div class="auth-visual-quote">"I went from knowing nothing about data science to landing a job at a Fortune 500 company in just 8 months."</div>
+      <div class="auth-visual-name">— James Okonkwo, Data Analyst at McKinsey</div>
+    </div>
+  </div>
+  <div class="auth-form-side">
+    <div class="auth-box">
+      <a href="index.html" class="auth-logo"><span></span>Lumina</a>
+      <h1 class="auth-title">Welcome Back</h1>
+      <p class="auth-sub">New to Lumina? <a href="signup.html">Create an account</a></p>
+
+      <div class="auth-error" id="authError"></div>
+
+      <div class="auth-group">
+        <label class="auth-label">Email Address</label>
+        <input type="email" class="auth-input" id="liEmail" placeholder="jane@example.com">
+      </div>
+      <div class="auth-group">
+        <label class="auth-label">Password</label>
+        <input type="password" class="auth-input" id="liPassword" placeholder="Your password">
+      </div>
+      <button class="auth-submit" onclick="handleLogin()">Log In →</button>
+
+      <p class="auth-note">⚠️ Demo mode: this checks the browser's local storage only — not a real server. If you signed up on a different device or browser, your account won't be found here.</p>
+    </div>
+  </div>
+</div>
+
+<script src="main.js"></script>
+<script src="auth.js"></script>
+<script>
+function handleLogin() {
+  const email = document.getElementById('liEmail').value;
+  const password = document.getElementById('liPassword').value;
+  const errBox = document.getElementById('authError');
+
+  const result = LuminaAuth.login(email, password);
+  if (result.success) {
+    window.location.href = 'dashboard.html';
+  } else {
+    errBox.textContent = result.message;
+    errBox.classList.add('show');
+  }
+}
+document.getElementById('liPassword').addEventListener('keypress', e => { if (e.key === 'Enter') handleLogin(); });
+</script>
+</body>
+</html>

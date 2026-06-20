@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Writing a Pentest Report — Ethical Hacking & Pentesting — Lumina Academy</title>
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../lesson-page.css">
+</head>
+<body>
+<div class="cursor" id="cursor"></div><div class="cursor-ring" id="cursorRing"></div>
+<div class="progress-bar" id="progressBar" style="width:0%"></div>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="../../courses.html" onclick="closeMobileNav()">Courses</a>
+  <a href="../../index.html#categories" onclick="closeMobileNav()">Topics</a>
+  <a href="../../mentors.html" onclick="closeMobileNav()">Mentors</a>
+  <a href="../../about.html" onclick="closeMobileNav()">About</a>
+  <a href="../../contact.html" onclick="closeMobileNav()">Contact</a>
+  <div id="authSlotMobile"></div>
+</div>
+<nav>
+  <a href="../../index.html" class="nav-logo"><span></span>Lumina</a>
+  <ul class="nav-links">
+    <li><a href="../../courses.html">Courses</a></li>
+    <li><a href="../../mentors.html">Mentors</a></li>
+    <li><a href="../../about.html">About</a></li>
+    <li><a href="../../contact.html">Contact</a></li>
+  </ul>
+  <div id="authSlotDesktop"></div>
+  <button class="hamburger" id="hamburger" onclick="toggleMobileNav()"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="lesson-layout">
+  <aside class="lesson-sidebar">
+    <div class="ls-course-title">🔐 Ethical Hacking & Pentesting</div>
+    <div class="ls-progress-wrap">
+      <div class="ls-progress-label"><span>Your Progress</span><span id="lsProgressText">0 / 6</span></div>
+      <div class="ls-progress-bar"><div class="ls-progress-fill" id="lsProgressFill" style="width:0%"></div></div>
+    </div>
+    <div id="lessonSidebarList"></div>
+  </aside>
+
+  <main class="lesson-main">
+    <div class="lesson-breadcrumb"><a href="../../courses.html">Courses</a> / <a href="../ethical-hacking.html">Ethical Hacking & Pentesting</a> / Writing a Pentest Report</div>
+
+    <div class="login-banner" id="loginBanner" style="display:none">
+      <span>📌 Log in to save your progress across lessons.</span>
+      <a href="../../login.html">Log In →</a>
+    </div>
+
+    <div class="lesson-num">Lesson 5 of 6</div>
+    <h1 class="lesson-title">Writing a Pentest Report</h1>
+
+    <div class="video-placeholder" onclick="this.querySelector('.play-btn').style.transform='scale(0.9)'">
+      <div class="video-grid-overlay"></div>
+      <div class="video-label">Ethical Hacking & Pentesting</div>
+      <div class="play-btn">▶</div>
+      <div class="video-duration-badge">18m</div>
+    </div>
+
+    <div class="lesson-content">
+      <p>Finding vulnerabilities is only half the job. A professional report communicates risk clearly to both technical and executive audiences, with remediation steps.</p>
+    </div>
+
+    <div class="lesson-nav-bottom">
+      <a href="#" id="prevLessonLink" class="lesson-nav-link disabled">← Previous Lesson</a>
+      <button class="complete-btn" id="completeBtn">Mark as Complete</button>
+      <a href="#" id="nextLessonLink" class="lesson-nav-link">Next Lesson →</a>
+    </div>
+  </main>
+</div>
+
+<script src="../../main.js"></script>
+<script src="../../auth.js"></script>
+<script>
+window.LESSON_DATA = {
+  courseId: "ethical-hacking",
+  lessonId: "reporting",
+  courseUrl: "../ethical-hacking.html",
+  lessons: [{"id": "intro", "title": "Course Introduction & Ethics", "time": "8m", "url": "intro.html"}, {"id": "lab-setup", "title": "Setting Up Your Lab", "time": "20m", "url": "lab-setup.html"}, {"id": "recon", "title": "Reconnaissance & Scanning", "time": "25m", "url": "recon.html"}, {"id": "web-vulns", "title": "Common Web Vulnerabilities", "time": "30m", "url": "web-vulns.html"}, {"id": "reporting", "title": "Writing a Pentest Report", "time": "18m", "url": "reporting.html"}, {"id": "certifications", "title": "Certification Pathways", "time": "12m", "url": "certifications.html"}]
+};
+</script>
+<script src="../lesson.js"></script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Dashboard — Lumina Academy</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.dash-hero{padding:9rem 3rem 3rem;background:var(--ink);position:relative;overflow:hidden}
+.dash-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 80% 50%,rgba(26,143,160,0.15),transparent 70%)}
+.dash-hero-inner{position:relative;z-index:1;display:flex;align-items:center;gap:1.5rem}
+.dash-avatar{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--gold));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:var(--ink);flex-shrink:0}
+.dash-greeting{font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
+.dash-name{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--paper);letter-spacing:-0.02em}
+.dash-email{font-size:.82rem;color:rgba(245,240,232,0.45);margin-top:.2rem}
+
+.dash-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;background:var(--ink)}
+.dash-stat-box{background:var(--paper);padding:2rem;text-align:center}
+.dash-stat-num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--ink)}
+.dash-stat-num span{color:var(--gold)}
+.dash-stat-label{font-size:.75rem;color:rgba(13,13,20,0.5);margin-top:.3rem}
+
+.dash-body{padding:4rem 3rem;max-width:1100px;margin:0 auto}
+.my-courses-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:2rem}
+.my-course-card{background:white;border:1px solid rgba(13,13,20,0.07);padding:1.5rem;display:flex;gap:1.2rem;align-items:center;transition:transform .3s,box-shadow .3s;text-decoration:none;color:var(--ink)}
+.my-course-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px var(--shadow)}
+.mc-icon{width:56px;height:56px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.6rem;background:var(--cream)}
+.mc-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:.5rem;line-height:1.3}
+.mc-progress-bar{height:6px;background:var(--cream);position:relative;overflow:hidden;margin-bottom:.4rem}
+.mc-progress-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));transition:width .3s}
+.mc-progress-text{font-family:'Space Mono',monospace;font-size:.65rem;color:rgba(13,13,20,0.45)}
+
+.empty-state{text-align:center;padding:4rem 2rem;background:var(--cream)}
+.empty-icon{font-size:3rem;margin-bottom:1rem}
+.empty-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;margin-bottom:.6rem}
+.empty-desc{font-size:.88rem;color:rgba(13,13,20,0.55);margin-bottom:1.5rem}
+
+.logout-btn{font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(245,240,232,0.5);background:none;border:1px solid rgba(245,240,232,0.2);padding:.5rem 1.1rem;cursor:pointer;margin-left:auto;transition:all .2s}
+.logout-btn:hover{color:var(--paper);border-color:var(--paper)}
+
+@media(max-width:900px){.dash-stats{grid-template-columns:repeat(2,1fr)}.my-courses-grid{grid-template-columns:1fr}}
+@media(max-width:768px){.dash-hero{padding:7rem 1.25rem 2.5rem}.dash-hero-inner{flex-wrap:wrap}.dash-body{padding:3rem 1.25rem}.logout-btn{margin-left:0}}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div><div class="cursor-ring" id="cursorRing"></div>
+<div class="progress-bar" id="progressBar" style="width:0%"></div>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="courses.html" onclick="closeMobileNav()">Courses</a>
+  <a href="index.html#categories" onclick="closeMobileNav()">Topics</a>
+  <a href="mentors.html" onclick="closeMobileNav()">Mentors</a>
+  <a href="about.html" onclick="closeMobileNav()">About</a>
+  <a href="contact.html" onclick="closeMobileNav()">Contact</a>
+  <div id="authSlotMobile"></div>
+</div>
+<nav>
+  <a href="index.html" class="nav-logo"><span></span>Lumina</a>
+  <ul class="nav-links">
+    <li><a href="courses.html">Courses</a></li>
+    <li><a href="index.html#categories">Topics</a></li>
+    <li><a href="mentors.html">Mentors</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div id="authSlotDesktop"></div>
+  <button class="hamburger" id="hamburger" onclick="toggleMobileNav()"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="dash-hero">
+  <div class="dash-hero-bg"></div>
+  <div class="dash-hero-inner">
+    <div class="dash-avatar" id="dashAvatar">--</div>
+    <div>
+      <div class="dash-greeting">Welcome back</div>
+      <div class="dash-name" id="dashName">Loading...</div>
+      <div class="dash-email" id="dashEmail"></div>
+    </div>
+    <button class="logout-btn" onclick="handleLogout()">Log Out</button>
+  </div>
+</div>
+
+<div class="dash-stats">
+  <div class="dash-stat-box"><div class="dash-stat-num" id="statEnrolled">0</div><div class="dash-stat-label">Courses Enrolled</div></div>
+  <div class="dash-stat-box"><div class="dash-stat-num" id="statLessons">0</div><div class="dash-stat-label">Lessons Completed</div></div>
+  <div class="dash-stat-box"><div class="dash-stat-num" id="statHours">0<span>h</span></div><div class="dash-stat-label">Est. Hours Learned</div></div>
+  <div class="dash-stat-box"><div class="dash-stat-num" id="statStreak">🔥</div><div class="dash-stat-label">Keep Learning!</div></div>
+</div>
+
+<div class="dash-body">
+  <div class="section-label">Continue Learning</div>
+  <h2 class="section-title" style="font-size:clamp(1.6rem,3vw,2.2rem)">Your Courses</h2>
+
+  <div id="coursesContainer"></div>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div><div class="footer-brand"><span></span>Lumina Academy</div><p class="footer-desc">Empowering learners worldwide with industry-leading education and mentorship since 2020.</p></div>
+    <div><div class="footer-col-title">Courses</div><ul class="footer-links"><li><a href="courses.html">All Courses</a></li></ul></div>
+    <div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a href="about.html">About Us</a></li><li><a href="mentors.html">Mentors</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div><div class="footer-col-title">Support</div><ul class="footer-links"><li><a href="#">Help Center</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 Lumina Academy. All rights reserved.</span></div>
+</footer>
+
+<script src="main.js"></script>
+<script src="auth.js"></script>
+<script>
+// All courses catalog with lesson counts (must match lesson pages)
+const CATALOG = [
+  { id:'machine-learning', title:'Machine Learning A-Z', icon:'🧠', lessons:6, hours:28, url:'courses/machine-learning.html' },
+  { id:'ux-design', title:'Complete UI/UX Design Bootcamp', icon:'🎨', lessons:6, hours:36, url:'courses/ux-design.html' },
+  { id:'react-typescript', title:'React & TypeScript Masterclass', icon:'⚛️', lessons:6, hours:22, url:'courses/react-typescript.html' },
+  { id:'python-data', title:'Python for Data Analysis', icon:'📊', lessons:6, hours:18, url:'courses/python-data.html' },
+  { id:'ethical-hacking', title:'Ethical Hacking & Pentesting', icon:'🔐', lessons:6, hours:40, url:'courses/ethical-hacking.html' },
+  { id:'aws-architect', title:'AWS Certified Solutions Architect', icon:'☁️', lessons:6, hours:30, url:'courses/aws-architect.html' },
+  { id:'flutter-mobile', title:'Flutter & Dart Mobile Apps', icon:'📱', lessons:6, hours:32, url:'courses/flutter-mobile.html' },
+  { id:'fullstack-web', title:'Full-Stack Web Development', icon:'⚡', lessons:6, hours:42, url:'courses/fullstack-web.html' }
+];
+
+function handleLogout() {
+  LuminaAuth.logout();
+  window.location.href = 'index.html';
+}
+
+function renderDashboard() {
+  const user = LuminaAuth.currentUser();
+  if (!user) {
+    window.location.href = 'login.html';
+    return;
+  }
+
+  document.getElementById('dashAvatar').textContent = user.initials;
+  document.getElementById('dashName').textContent = user.name;
+  document.getElementById('dashEmail').textContent = user.email;
+
+  const progress = LuminaAuth.getProgress();
+  const enrolledCourses = CATALOG.filter(c => progress[c.id] && progress[c.id].length > 0);
+
+  let totalLessonsDone = 0;
+  let totalHours = 0;
+  enrolledCourses.forEach(c => {
+    const done = progress[c.id].length;
+    totalLessonsDone += done;
+    totalHours += Math.round((done / c.lessons) * c.hours);
+  });
+
+  document.getElementById('statEnrolled').textContent = enrolledCourses.length;
+  document.getElementById('statLessons').textContent = totalLessonsDone;
+  document.getElementById('statHours').innerHTML = totalHours + '<span>h</span>';
+
+  const container = document.getElementById('coursesContainer');
+
+  if (enrolledCourses.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">📚</div>
+        <div class="empty-title">No courses started yet</div>
+        <div class="empty-desc">Browse our catalog and start your first lesson — it'll show up here automatically.</div>
+        <a href="courses.html" class="btn-primary"><span>Browse Courses →</span></a>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = `<div class="my-courses-grid">` + enrolledCourses.map(c => {
+    const done = progress[c.id].length;
+    const pct = Math.round((done / c.lessons) * 100);
+    return `
+      <a href="${c.url}" class="my-course-card">
+        <div class="mc-icon">${c.icon}</div>
+        <div style="flex:1">
+          <div class="mc-title">${c.title}</div>
+          <div class="mc-progress-bar"><div class="mc-progress-fill" style="width:${pct}%"></div></div>
+          <div class="mc-progress-text">${done} / ${c.lessons} lessons · ${pct}% complete</div>
+        </div>
+      </a>`;
+  }).join('') + `</div>`;
+}
+
+renderDashboard();
+</script>
+</body>
+</html>
